@@ -7,6 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "74b885bd11d240abbc2887aa4ef55c96"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
+
   <style>
     button {
       margin: 3px;
@@ -95,13 +104,151 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      
+      if (secondNum == 0 && operator == '/')
+      {
+        throw new Error('Division by Zero!');
+      }
+
+      try
+      {
+        var evaluation = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      
+      catch(err)
+      {
+        throw new ReferenceError('Invalid Input. Please only use numbers');
+      }
+
+      finally
+      {
+        output.innerHTML = evaluation;
+      }
+
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    function consoleLog()
+    {
+      console.log('Console Log Button works just fine.');      
+    }
+
+    function consoleErr()
+    {
+      console.error('Mr. Stark I don`t feel so good.');
+    }
+
+    function consoleCount()
+    {
+      console.count();
+    }
+
+    function consoleWarn()
+    {
+      console.warn('Hold up');
+    }
+
+    function consoleAssert()
+    {
+      console.assert(1==0, "1 does not equal 0");
+    }
+
+    function consoleClear()
+    {
+      console.clear();
+    }
+
+    function consoleDir()
+    {
+      console.dir(document.head);
+    }
+
+    function consoleDirXML()
+    {
+      console.dirxml(document);
+    }
+
+    function consoleGrpStart()
+    {
+      console.group("Group Started");
+    }
+
+    function consoleGrpEnd()
+    {
+      console.groupEnd("Group Ended");
+    }
+
+    function consoleTable()
+    {
+      let tab = [
+        {
+          fname: "Anirwin",
+          lname: "Jain"
+        },
+        {
+          fname: "Vathsala",
+          lname: "Jain"
+        },
+        {
+          fname: "Hitesh",
+          lname: "Jain"
+        },
+        {
+          fname: "Anirudh",
+          lname: "Jain"
+        }
+      ];
+      console.table(tab);
+    }
+
+    function consoleTimerStart()
+    {
+      console.time();
+    }
+
+    function consoleTimerEnd()
+    {
+        console.timeEnd();
+    }
+
+    function consoleTrace()
+    {
+      console.trace();
+    }
+
+    function consoleGlobalError()
+    {
+      throw new SyntaxError;
+    }
+
+    errorBtns[0].addEventListener("click", consoleLog);
+    errorBtns[1].addEventListener("click", consoleErr);
+    errorBtns[2].addEventListener("click", consoleCount);
+    errorBtns[3].addEventListener("click", consoleWarn);
+    errorBtns[4].addEventListener("click", consoleAssert);
+    errorBtns[5].addEventListener("click", consoleClear);
+    errorBtns[6].addEventListener("click", consoleDir);
+    errorBtns[7].addEventListener("click", consoleDirXML);
+    errorBtns[8].addEventListener("click", consoleGrpStart);
+    errorBtns[9].addEventListener("click", consoleGrpEnd);
+    errorBtns[10].addEventListener("click", consoleTable);
+    errorBtns[11].addEventListener("click", consoleTimerStart);
+    errorBtns[12].addEventListener("click", consoleTimerEnd);
+    errorBtns[13].addEventListener("click", consoleTrace);
+
+    window.onerror = function(event, source, lineno, colno, error)
+    {
+      console.log("Global Error:" + event);
+      console.log("Source: " + source);
+    }
+    
+    errorBtns[14].addEventListener("click", consoleGlobalError);
+    
+    TrackJS.track('Testing TrackJS!');
+                        
   </script>
 </body>
 
